@@ -1,10 +1,8 @@
 import os
 import sys
 from dotenv import load_dotenv
-
 # Pehle env load karna 
 load_dotenv()
-
 # Imports from src folder
 from src.loader import load_csv
 from src.analyzer import (
@@ -18,24 +16,17 @@ from src.prompt_router import route_prompt
 
 def main():
     print("--- Aadhaar AI Analytics System ---")
-    
-    # -----------------------------
     # 1. Debugging API Key
-    # -----------------------------
     api_key = os.getenv("GEMINI_API_KEY")
     print(f"Testing API Key Status: {'Loaded' if api_key else 'NOT FOUND (Check .env file)'}")
     
     if not api_key:
         print("Error: .env file mein GEMINI_API_KEY nahi mili. Program exit ho raha hai.")
         return
-
-    # -----------------------------
     # 2. Path Configuration
-    # -----------------------------
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     # Ensure file name matches exactly with your folder
     csv_path = os.path.join(BASE_DIR, "data", "input", "aadhar_clean.csv")
-
     # Topic to Function Mapping
     ANALYSIS_MAP = {
         "Age-wise Aadhaar Coverage Imbalance": age_wise_coverage,
@@ -49,13 +40,10 @@ def main():
         "Longitudinal Stability Assessment": longitudinal_stability,
         "Resource Allocation Optimization": resource_allocation
     }
-
- 
     # 3. Data Loading
-    
     if not os.path.exists(csv_path):
         print(f"Error: Data file nahi mili at: {csv_path}")
-        return
+        returnz
 
     print("Loading CSV file... (Big files may take a moment)")
     df = load_csv(csv_path, use_chunks=True)
@@ -65,10 +53,7 @@ def main():
         return
         
     print(f"Data Loaded! Total rows: {len(df)}")
-
-    # -----------------------------
     # 4. User Interaction
-    # -----------------------------
     user_prompt = input("\nAapka Aadhaar query kya hai? ")
 
     print("\nGemini AI routing process mein hai...")
