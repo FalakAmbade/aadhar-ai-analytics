@@ -79,10 +79,7 @@ def main():
         return
 
     print(f"Mapped Topics: {problem_labels}")
-
-    # -----------------------------
     # 5. Execution & Visualization
-    # -----------------------------
     for problem in problem_labels:
         if problem in ANALYSIS_MAP:
             print(f"\nProcessing: {problem}...")
